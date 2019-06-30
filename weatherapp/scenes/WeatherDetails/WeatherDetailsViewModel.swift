@@ -20,9 +20,9 @@ final class WeatherDetailsViewModel: ViewModelType {
     }
 
     func transform(input: Input) -> Output {
-        let temperature = weatherData.main?.temp?.tempValue ?? "-"
-        let city = weatherData.name ?? "-"
-        let maxMinTemperature = "\(weatherData.main?.temp_min?.tempValue ?? "-") / \(weatherData.main?.temp_max?.tempValue ?? "-")"
+        let temperature = weatherData.main.temp?.tempValue ?? "-"
+        let city = weatherData.name + " / " + Date(timeIntervalSince1970: TimeInterval(weatherData.dt)).dayOfWeek()
+        let maxMinTemperature = "\(weatherData.main.temp_min?.tempValue ?? "-") / \(weatherData.main.temp_max?.tempValue ?? "-")"
         let sky = weatherData.weather?.first?.main ?? "-"
 
         let goBack = input.goBack
@@ -61,5 +61,13 @@ private extension Float {
 
     var tempValue: String {
         return "\(Int(self.rounded()))°"
+    }
+}
+
+private extension Date {
+    func dayOfWeek() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: self).localizedCapitalized
     }
 }

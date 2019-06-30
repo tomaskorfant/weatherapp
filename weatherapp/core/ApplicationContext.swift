@@ -20,8 +20,8 @@ final class ApplicationContext: ApplicationContextType {
 
     static var shared = ApplicationContext()
 
-    let gateway: Gateway
-    let useCase: UseCase
+    var gateway: Gateway
+    var useCase: UseCase
     
     init () {
         gateway = Gateway(weatherApiProvider: WeatherAPI(appid: "7587eaff3affbf8e56a81da4d6c51d06"))

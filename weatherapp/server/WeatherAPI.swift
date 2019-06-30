@@ -11,12 +11,23 @@ import UIKit
 import RxSwift
 
 public protocol WeatherAPIType {
+    var provider: MoyaProvider<OpenWeatherMap> { get }
     func weather(id: Int) -> Single<WeatherData>
+}
+
+extension WeatherAPIType {
+
+    public func weather(id: Int) -> Single<WeatherData> {
+        return provider.rx
+            .request(.weather(id))
+            .map(WeatherData.self)
+    }
+
 }
 
 public class WeatherAPI: WeatherAPIType {
 
-    private let provider: MoyaProvider<OpenWeatherMap>
+    public let provider: MoyaProvider<OpenWeatherMap>
 
     private static var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
@@ -45,12 +56,6 @@ public class WeatherAPI: WeatherAPIType {
             }),
             AppidPlugin { appid }
             ])
-    }
-
-    public func weather(id: Int) -> Single<WeatherData> {
-        return provider.rx
-            .request(.weather(id))
-            .map(WeatherData.self)
     }
 
 }

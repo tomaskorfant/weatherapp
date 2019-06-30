@@ -8,19 +8,17 @@
 
 public struct WeatherData: Decodable {
 
-    let coord: Coord?
+    let coord: Coord
     let weather: [Weather]?
-    let base: String?
-    let main: Main?
+    let main: Main
     let visibility: Int?
     let wind: Wind?
     let clouds: Clouds?
-    let dt: Int?
+    let dt: Int
     let sys: Sys?
-    let timezone: Int?
-    let id: Int?
-    let name: String?
-    let cod: Int?
+    let timezone: Int
+    let id: Int
+    let name: String
 
 }
 
@@ -67,9 +65,6 @@ extension WeatherData {
 
     public struct Sys: Decodable {
 
-        let type: Int?
-        let id: Int?
-        let message: Float?
         let country: String?
         let sunrise: Int?
         let sunset: Int?
